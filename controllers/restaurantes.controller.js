@@ -1,8 +1,6 @@
 const Restaurante = require('../models/Restaurante');
 
-// @route   GET /api/restaurantes
-// @desc    Obtener todos los restaurantes
-// @access  Público
+
 const obtenerRestaurantes = async (req, res, next) => {
   try {
     const { ciudad, tipoCocina, activo = true, page = 1, limit = 10, buscar } = req.query;
@@ -35,9 +33,6 @@ const obtenerRestaurantes = async (req, res, next) => {
   }
 };
 
-// @route   GET /api/restaurantes/:id
-// @desc    Obtener un restaurante por ID
-// @access  Público
 const obtenerRestaurante = async (req, res, next) => {
   try {
     const restaurante = await Restaurante.findById(req.params.id).populate(
@@ -53,9 +48,7 @@ const obtenerRestaurante = async (req, res, next) => {
   }
 };
 
-// @route   POST /api/restaurantes
-// @desc    Crear restaurante
-// @access  Privado - Admin
+
 const crearRestaurante = async (req, res, next) => {
   try {
     const datos = { ...req.body };
@@ -72,9 +65,7 @@ const crearRestaurante = async (req, res, next) => {
   }
 };
 
-// @route   PUT /api/restaurantes/:id
-// @desc    Actualizar restaurante
-// @access  Privado - Admin
+
 const actualizarRestaurante = async (req, res, next) => {
   try {
     const restaurante = await Restaurante.findByIdAndUpdate(req.params.id, req.body, {
@@ -90,9 +81,7 @@ const actualizarRestaurante = async (req, res, next) => {
   }
 };
 
-// @route   DELETE /api/restaurantes/:id
-// @desc    Desactivar restaurante (soft delete)
-// @access  Privado - Admin
+
 const eliminarRestaurante = async (req, res, next) => {
   try {
     const restaurante = await Restaurante.findByIdAndUpdate(
