@@ -1,8 +1,6 @@
 const Usuario = require('../models/Usuario');
 
-// @route   GET /api/usuarios
-// @desc    Obtener todos los usuarios (admin)
-// @access  Privado - Admin
+
 const obtenerUsuarios = async (req, res, next) => {
   try {
     const { rol, activo, page = 1, limit = 10, buscar } = req.query;
