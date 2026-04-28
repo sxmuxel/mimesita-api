@@ -1,12 +1,24 @@
 {
   "name": "mimesita-api",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "API REST para el Sistema de Gestión de Reservas para Restaurantes - MiMesita",
+  "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
   },
-  "keywords": [],
+  "keywords": ["reservas", "restaurante", "api", "express", "mongodb"],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.4.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.3"
+  }
 }
