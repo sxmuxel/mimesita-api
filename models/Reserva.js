@@ -33,7 +33,7 @@ const reservaSchema = new mongoose.Schema(
     },
     numeroPersonas: {
       type: Number,
-      required: [true, 'El número de personas es obligatorio'],
+      required: [true, 'El numero de personas es obligatorio'],
       min: [1, 'Debe haber minimo 1 persona'],
     },
     estado: {
