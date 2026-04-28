@@ -1,9 +1,7 @@
 const Mesa = require('../models/Mesa');
 const Restaurante = require('../models/Restaurante');
 
-// @route   GET /api/mesas
-// @desc    Obtener todas las mesas (con filtros)
-// @access  Privado
+
 const obtenerMesas = async (req, res, next) => {
   try {
     const { restaurante, disponible, ubicacion, capacidadMin } = req.query;
@@ -24,9 +22,7 @@ const obtenerMesas = async (req, res, next) => {
   }
 };
 
-// @route   GET /api/mesas/:id
-// @desc    Obtener una mesa por ID
-// @access  Privado
+
 const obtenerMesa = async (req, res, next) => {
   try {
     const mesa = await Mesa.findById(req.params.id).populate('restaurante', 'nombre');
@@ -39,9 +35,7 @@ const obtenerMesa = async (req, res, next) => {
   }
 };
 
-// @route   GET /api/restaurantes/:restauranteId/mesas
-// @desc    Obtener mesas de un restaurante específico
-// @access  Público
+
 const obtenerMesasDeRestaurante = async (req, res, next) => {
   try {
     const restaurante = await Restaurante.findById(req.params.restauranteId);
@@ -60,9 +54,7 @@ const obtenerMesasDeRestaurante = async (req, res, next) => {
   }
 };
 
-// @route   POST /api/mesas
-// @desc    Crear una mesa
-// @access  Privado - Admin / Empleado
+
 const crearMesa = async (req, res, next) => {
   try {
     const mesa = await Mesa.create(req.body);
@@ -72,9 +64,7 @@ const crearMesa = async (req, res, next) => {
   }
 };
 
-// @route   PUT /api/mesas/:id
-// @desc    Actualizar una mesa
-// @access  Privado - Admin / Empleado
+
 const actualizarMesa = async (req, res, next) => {
   try {
     const mesa = await Mesa.findByIdAndUpdate(req.params.id, req.body, {
@@ -90,9 +80,7 @@ const actualizarMesa = async (req, res, next) => {
   }
 };
 
-// @route   DELETE /api/mesas/:id
-// @desc    Desactivar una mesa
-// @access  Privado - Admin
+
 const eliminarMesa = async (req, res, next) => {
   try {
     const mesa = await Mesa.findByIdAndUpdate(req.params.id, { activa: false }, { new: true });
