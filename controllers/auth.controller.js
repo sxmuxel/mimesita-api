@@ -13,7 +13,6 @@ const registro = async (req, res, next) => {
   try {
     const { nombre, apellido, email, password, telefono, rol } = req.body;
 
-    // Verificar si el email ya existe
     const usuarioExiste = await Usuario.findOne({ email });
     if (usuarioExiste) {
       return res.status(409).json({
@@ -22,7 +21,6 @@ const registro = async (req, res, next) => {
       });
     }
 
-    // Solo admin puede crear usuarios con rol admin o empleado
     const rolAsignado =
       req.usuario && req.usuario.rol === 'admin' ? rol || 'cliente' : 'cliente';
 
