@@ -8,9 +8,7 @@ const generarToken = (id) => {
   });
 };
 
-// @route   POST /api/auth/registro
-// @desc    Registrar nuevo usuario
-// @access  Público
+
 const registro = async (req, res, next) => {
   try {
     const { nombre, apellido, email, password, telefono, rol } = req.body;
