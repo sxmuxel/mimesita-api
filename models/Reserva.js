@@ -34,7 +34,7 @@ const reservaSchema = new mongoose.Schema(
     numeroPersonas: {
       type: Number,
       required: [true, 'El número de personas es obligatorio'],
-      min: [1, 'Debe haber al menos 1 persona'],
+      min: [1, 'Debe haber minimo 1 persona'],
     },
     estado: {
       type: String,
@@ -69,7 +69,7 @@ const reservaSchema = new mongoose.Schema(
   }
 );
 
-// Generar código de reserva único antes de guardar
+
 reservaSchema.pre('save', function (next) {
   if (!this.codigoReserva) {
     const timestamp = Date.now().toString(36).toUpperCase();
