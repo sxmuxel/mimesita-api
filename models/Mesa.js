@@ -9,8 +9,8 @@ const mesaSchema = new mongoose.Schema(
     },
     numero: {
       type: Number,
-      required: [true, 'El número de mesa es obligatorio'],
-      min: [1, 'El número de mesa debe ser al menos 1'],
+      required: [true, 'El numero de mesa es obligatorio'],
+      min: [1, 'El numero de mesa debe ser al menos 1'],
     },
     capacidad: {
       type: Number,
@@ -26,7 +26,7 @@ const mesaSchema = new mongoose.Schema(
     descripcion: {
       type: String,
       trim: true,
-      maxlength: [300, 'La descripción debe tener menos de 300 caracteres'],
+      maxlength: [300, 'La descripcion debe tener menos de 300 caracteres'],
     },
     disponible: {
       type: Boolean,
@@ -43,7 +43,7 @@ const mesaSchema = new mongoose.Schema(
   }
 );
 
-// Índice compuesto: no puede haber dos mesas con el mismo número en el mismo restaurante
+
 mesaSchema.index({ restaurante: 1, numero: 1 }, { unique: true });
 
 module.exports = mongoose.model('Mesa', mesaSchema);
