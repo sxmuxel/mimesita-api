@@ -1,0 +1,71 @@
+const mongoose = require('mongoose');
+
+const horarioSchema = new mongoose.Schema(
+  {
+    dia: {
+      type: String,
+      enum: ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo'],
+      required: true,
+    },
+    apertura: { type: String, required: true }, // Ej: "08:00"
+    cierre: { type: String, required: true },   // Ej: "22:00"
+    cerrado: { type: Boolean, default: false },
+  },
+  { _id: false }
+);
+
+const restauranteSchema = new mongoose.Schema(
+  {
+    nombre: {
+      type: String,
+      required: [true, 'El nombre del restaurante es obligatorio'],
+      trim: true,
+      maxlength: [150, 'El nombre no puede superar 150 caracteres'],
+    },
+    descripcion: {
+      type: String,
+      trim: true,
+      maxlength: [1000, 'La descripción no puede superar 1000 caracteres'],
+    },
+    direccion: {
+      calle: { type: String, required: [true, 'La calle es obligatoria'] },
+      ciudad: { type: String, required: [true, 'La ciudad es obligatoria'] },
+      departamento: { type: String },
+      codigoPostal: { type: String },
+    },
+    telefono: {
+      type: String,
+      required: [true, 'El teléfono es obligatorio'],
+    },
+    email: {
+      type: String,
+      lowercase: true,
+      trim: true,
+      match: [/^\S+@\S+\.\S+$/, 'Formato de email inválido'],
+    },
+    tipoCocina: {
+      type: String,
+      trim: true,
+    },
+    capacidadTotal: {
+      type: Number,
+      required: [true, 'La capacidad total es obligatoria'],
+      min: [1, 'La capacidad debe ser al menos 1'],
+    },
+    horarios: [horarioSchema],
+    activo: {
+      type: Boolean,
+      default: true,
+    },
+    administrador: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Usuario',
+    },
+  },
+  {
+    timestamps: true,
+    versionKey: false,
+  }
+);
+
+module.exports = mongoose.model('Restaurante', restauranteSchema);
