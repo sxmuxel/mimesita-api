@@ -49,7 +49,7 @@ const reservaSchema = new mongoose.Schema(
     peticionesEspeciales: {
       type: String,
       trim: true,
-      maxlength: [500, 'Las peticiones no pueden superar 500 caracteres'],
+      maxlength: [500, 'Las peticiones no pueden ser mayores a 500 caracteres'],
     },
     codigoReserva: {
       type: String,
