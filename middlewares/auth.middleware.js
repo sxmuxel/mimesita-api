@@ -1,12 +1,12 @@
 const jwt = require('jsonwebtoken');
 const Usuario = require('../models/Usuario');
 
-// Verificar token JWT
+
 const verificarToken = async (req, res, next) => {
   try {
     let token;
 
-    // Obtener token del header Authorization: Bearer <token>
+    
     if (req.headers.authorization && req.headers.authorization.startsWith('Bearer ')) {
       token = req.headers.authorization.split(' ')[1];
     }
@@ -18,10 +18,10 @@ const verificarToken = async (req, res, next) => {
       });
     }
 
-    // Verificar y decodificar token
+    
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    // Buscar usuario en BD
+
     const usuario = await Usuario.findById(decoded.id);
     if (!usuario || !usuario.activo) {
       return res.status(401).json({
@@ -43,7 +43,7 @@ const verificarToken = async (req, res, next) => {
   }
 };
 
-// Restringir acceso por rol
+
 const restringirA = (...roles) => {
   return (req, res, next) => {
     if (!roles.includes(req.usuario.rol)) {
