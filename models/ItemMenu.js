@@ -52,7 +52,7 @@ const itemMenuSchema = new mongoose.Schema(
     ],
     tiempoPreparacion: {
       type: Number, // En minutos
-      min: [0, 'El tiempo no puede ser negativo'],
+      min: [0, 'El tiempo no puede ser menor a 0'],
     },
   },
   {
