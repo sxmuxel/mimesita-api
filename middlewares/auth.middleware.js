@@ -26,7 +26,7 @@ const verificarToken = async (req, res, next) => {
     if (!usuario || !usuario.activo) {
       return res.status(401).json({
         success: false,
-        mensaje: 'Token inválido o usuario inactivo.',
+        mensaje: 'Token invalido o usuario inactivo.',
       });
     }
 
