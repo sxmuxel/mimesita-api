@@ -255,7 +255,7 @@ const cambiarEstadoReserva = async (req, res, next) => {
       if (estado !== 'cancelada') {
         return res.status(403).json({
           success: false,
-          mensaje: 'Los clientes solo pueden cancelar reservas.',
+          mensaje: 'Los clientes solo pueden cancelar sus reservas.',
         });
       }
     }
