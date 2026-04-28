@@ -1,7 +1,7 @@
 const Reserva = require('../models/Reserva');
 const Mesa = require('../models/Mesa');
 
-// Verificar disponibilidad de una mesa en fecha/hora
+
 const verificarDisponibilidad = async (mesaId, fecha, horaInicio, horaFin, reservaIdExcluir = null) => {
   const filtro = {
     mesa: mesaId,
@@ -17,9 +17,7 @@ const verificarDisponibilidad = async (mesaId, fecha, horaInicio, horaFin, reser
   return !conflicto;
 };
 
-// @route   GET /api/reservas
-// @desc    Obtener reservas (admin/empleado: todas; cliente: las propias)
-// @access  Privado
+
 const obtenerReservas = async (req, res, next) => {
   try {
     const { estado, restaurante, fecha, page = 1, limit = 10 } = req.query;
@@ -55,9 +53,7 @@ const obtenerReservas = async (req, res, next) => {
   }
 };
 
-// @route   GET /api/reservas/:id
-// @desc    Obtener una reserva por ID
-// @access  Privado
+
 const obtenerReserva = async (req, res, next) => {
   try {
     const reserva = await Reserva.findById(req.params.id)
@@ -69,7 +65,7 @@ const obtenerReserva = async (req, res, next) => {
       return res.status(404).json({ success: false, mensaje: 'Reserva no encontrada.' });
     }
 
-    // Clientes solo pueden ver sus propias reservas
+  
     if (
       req.usuario.rol === 'cliente' &&
       reserva.cliente._id.toString() !== req.usuario._id.toString()
@@ -83,9 +79,7 @@ const obtenerReserva = async (req, res, next) => {
   }
 };
 
-// @route   GET /api/reservas/codigo/:codigo
-// @desc    Buscar reserva por código
-// @access  Privado
+
 const obtenerReservaPorCodigo = async (req, res, next) => {
   try {
     const reserva = await Reserva.findOne({ codigoReserva: req.params.codigo })
@@ -103,9 +97,7 @@ const obtenerReservaPorCodigo = async (req, res, next) => {
   }
 };
 
-// @route   POST /api/reservas
-// @desc    Crear una nueva reserva
-// @access  Privado
+
 const crearReserva = async (req, res, next) => {
   try {
     const { mesa: mesaId, fecha, horaInicio, horaFin, numeroPersonas, restaurante,
@@ -134,7 +126,7 @@ const crearReserva = async (req, res, next) => {
       });
     }
 
-    // Asignar cliente: si es cliente, usa su propio ID; admin puede asignar a otro
+    
     const clienteId =
       req.usuario.rol === 'cliente' ? req.usuario._id : req.body.cliente || req.usuario._id;
 
@@ -166,9 +158,7 @@ const crearReserva = async (req, res, next) => {
   }
 };
 
-// @route   PUT /api/reservas/:id
-// @desc    Actualizar reserva
-// @access  Privado
+
 const actualizarReserva = async (req, res, next) => {
   try {
     const reserva = await Reserva.findById(req.params.id);
@@ -191,7 +181,7 @@ const actualizarReserva = async (req, res, next) => {
 
     const { fecha, horaInicio, horaFin, numeroPersonas, peticionesEspeciales, ocasionEspecial } = req.body;
 
-    // Si cambia horario/mesa, reverificar disponibilidad
+    
     if (fecha || horaInicio || horaFin) {
       const disponible = await verificarDisponibilidad(
         reserva.mesa,
@@ -230,9 +220,7 @@ const actualizarReserva = async (req, res, next) => {
   }
 };
 
-// @route   PATCH /api/reservas/:id/estado
-// @desc    Cambiar estado de una reserva
-// @access  Privado
+
 const cambiarEstadoReserva = async (req, res, next) => {
   try {
     const { estado } = req.body;
@@ -247,7 +235,7 @@ const cambiarEstadoReserva = async (req, res, next) => {
       return res.status(404).json({ success: false, mensaje: 'Reserva no encontrada.' });
     }
 
-    // Clientes solo pueden cancelar sus propias reservas
+   
     if (req.usuario.rol === 'cliente') {
       if (reserva.cliente.toString() !== req.usuario._id.toString()) {
         return res.status(403).json({ success: false, mensaje: 'Acceso denegado.' });
@@ -270,9 +258,7 @@ const cambiarEstadoReserva = async (req, res, next) => {
   }
 };
 
-// @route   DELETE /api/reservas/:id
-// @desc    Eliminar reserva (solo admin)
-// @access  Privado - Admin
+
 const eliminarReserva = async (req, res, next) => {
   try {
     const reserva = await Reserva.findByIdAndDelete(req.params.id);
