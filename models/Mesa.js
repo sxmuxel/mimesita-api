@@ -26,7 +26,7 @@ const mesaSchema = new mongoose.Schema(
     descripcion: {
       type: String,
       trim: true,
-      maxlength: [300, 'La descripción no puede superar 300 caracteres'],
+      maxlength: [300, 'La descripción debe tener menos de 300 caracteres'],
     },
     disponible: {
       type: Boolean,
