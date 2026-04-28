@@ -34,9 +34,7 @@ const obtenerUsuarios = async (req, res, next) => {
   }
 };
 
-// @route   GET /api/usuarios/:id
-// @desc    Obtener un usuario por ID (admin)
-// @access  Privado - Admin
+
 const obtenerUsuario = async (req, res, next) => {
   try {
     const usuario = await Usuario.findById(req.params.id);
@@ -49,9 +47,7 @@ const obtenerUsuario = async (req, res, next) => {
   }
 };
 
-// @route   POST /api/usuarios
-// @desc    Crear usuario (admin puede asignar roles)
-// @access  Privado - Admin
+
 const crearUsuario = async (req, res, next) => {
   try {
     const { nombre, apellido, email, password, telefono, rol } = req.body;
@@ -73,9 +69,7 @@ const crearUsuario = async (req, res, next) => {
   }
 };
 
-// @route   PUT /api/usuarios/:id
-// @desc    Actualizar usuario (admin)
-// @access  Privado - Admin
+
 const actualizarUsuario = async (req, res, next) => {
   try {
     const { nombre, apellido, telefono, rol, activo } = req.body;
@@ -96,9 +90,7 @@ const actualizarUsuario = async (req, res, next) => {
   }
 };
 
-// @route   DELETE /api/usuarios/:id
-// @desc    Desactivar usuario (soft delete) (admin)
-// @access  Privado - Admin
+
 const eliminarUsuario = async (req, res, next) => {
   try {
     if (req.params.id === req.usuario._id.toString()) {
