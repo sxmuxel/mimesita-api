@@ -5,7 +5,7 @@ const itemMenuSchema = new mongoose.Schema(
     restaurante: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Restaurante',
-      required: [true, 'El restaurante es muy obligatorio'],
+      required: [true, 'El restaurante obligatorio'],
     },
     nombre: {
       type: String,
