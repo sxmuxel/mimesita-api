@@ -8,14 +8,11 @@ const generarToken = (id) => {
   });
 };
 
-// @route   POST /api/auth/registro
-// @desc    Registrar nuevo usuario
-// @access  Público
+
 const registro = async (req, res, next) => {
   try {
     const { nombre, apellido, email, password, telefono, rol } = req.body;
 
-    // Verificar si el email ya existe
     const usuarioExiste = await Usuario.findOne({ email });
     if (usuarioExiste) {
       return res.status(409).json({
@@ -24,7 +21,6 @@ const registro = async (req, res, next) => {
       });
     }
 
-    // Solo admin puede crear usuarios con rol admin o empleado
     const rolAsignado =
       req.usuario && req.usuario.rol === 'admin' ? rol || 'cliente' : 'cliente';
 
@@ -50,9 +46,6 @@ const registro = async (req, res, next) => {
   }
 };
 
-// @route   POST /api/auth/login
-// @desc    Iniciar sesión
-// @access  Público
 const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
@@ -64,7 +57,6 @@ const login = async (req, res, next) => {
       });
     }
 
-    // Buscar usuario con contraseña (select: false por defecto)
     const usuario = await Usuario.findOne({ email }).select('+password');
     if (!usuario || !usuario.activo) {
       return res.status(401).json({
@@ -73,7 +65,6 @@ const login = async (req, res, next) => {
       });
     }
 
-    // Verificar contraseña con bcrypt
     const passwordCorrecta = await usuario.compararPassword(password);
     if (!passwordCorrecta) {
       return res.status(401).json({
@@ -102,9 +93,6 @@ const login = async (req, res, next) => {
   }
 };
 
-// @route   GET /api/auth/perfil
-// @desc    Obtener perfil del usuario autenticado
-// @access  Privado
 const obtenerPerfil = async (req, res) => {
   res.json({
     success: true,

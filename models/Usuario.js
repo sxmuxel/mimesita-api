@@ -12,7 +12,7 @@ const usuarioSchema = new mongoose.Schema(
     },
     apellido: {
       type: String,
-      required: [true, 'El apellido es obligatorio'],
+      required: [true, 'El apellido es totalmente obligatorio'],
       trim: true,
       minlength: [2, 'El apellido debe tener al menos 2 caracteres'],
       maxlength: [100, 'El apellido no puede superar 100 caracteres'],
