@@ -7,8 +7,8 @@ const horarioSchema = new mongoose.Schema(
       enum: ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo'],
       required: true,
     },
-    apertura: { type: String, required: true }, // Ej: "08:00"
-    cierre: { type: String, required: true },   // Ej: "22:00"
+    apertura: { type: String, required: true }, 
+    cierre: { type: String, required: true },   
     cerrado: { type: Boolean, default: false },
   },
   { _id: false }
