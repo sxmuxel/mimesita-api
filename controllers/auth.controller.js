@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const Usuario = require('../models/Usuario');
 
-// Generar JWT
+
 const generarToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES_IN || '24h',
@@ -100,9 +100,7 @@ const obtenerPerfil = async (req, res) => {
   });
 };
 
-// @route   PUT /api/auth/perfil
-// @desc    Actualizar perfil del usuario autenticado
-// @access  Privado
+
 const actualizarPerfil = async (req, res, next) => {
   try {
     const camposPermitidos = ['nombre', 'apellido', 'telefono'];
@@ -126,9 +124,7 @@ const actualizarPerfil = async (req, res, next) => {
   }
 };
 
-// @route   PUT /api/auth/cambiar-password
-// @desc    Cambiar contraseña del usuario autenticado
-// @access  Privado
+
 const cambiarPassword = async (req, res, next) => {
   try {
     const { passwordActual, passwordNueva } = req.body;
@@ -151,7 +147,7 @@ const cambiarPassword = async (req, res, next) => {
     }
 
     usuario.password = passwordNueva;
-    await usuario.save(); // Activa el middleware pre-save para hashear
+    await usuario.save(); 
 
     const token = generarToken(usuario._id);
 
